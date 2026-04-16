@@ -35,13 +35,13 @@ while True:
         print("Failed to grab frame")
         break
 
-    # Convert to grayscale
+    
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
-    # Improve detection accuracy
+    
     gray = cv2.equalizeHist(gray)
 
-    # Detect faces
+
     faces = face_cascade.detectMultiScale(
         gray,
         scaleFactor=1.3,
@@ -49,13 +49,13 @@ while True:
         minSize=(30, 30)
     )
 
-    # Loop through detected faces
+ 
     for (x, y, w, h) in faces:
 
-        # Draw face rectangle
+      
         cv2.rectangle(frame, (x, y), (x + w, y + h), (255, 255, 0), 2)
 
-        # Display name above face
+       
         cv2.putText(
             frame,
             person_name,
@@ -67,11 +67,11 @@ while True:
             cv2.LINE_AA
         )
 
-        # Region of Interest
+        
         roi_gray = gray[y:y + h, x:x + w]
         roi_color = frame[y:y + h, x:x + w]
 
-        # Detect eyes
+       
         eyes = eye_cascade.detectMultiScale(
             roi_gray,
             scaleFactor=1.1,
@@ -88,7 +88,7 @@ while True:
                 2
             )
 
-    # Show output
+    
     cv2.imshow("Face and Eye Detection", frame)
 
     # Exit on ESC key
